@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8795323492443906716}
   - component: {fileID: 8693204495884262456}
   - component: {fileID: -4954269736390043382}
+  - component: {fileID: 129344271353731289}
   m_Layer: 0
   m_Name: "\u623F\u5B50-\u7A84\u7248"
-  m_TagString: Untagged
+  m_TagString: "\u623F\u5B50"
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +94,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6962075, y: 0.8029921, z: 1.0578718}
+  m_Size: {x: 1.7, y: 0.8029921, z: 1.1}
   m_Center: {x: 0.307894, y: -0.018822119, z: 0.3433722}
 --- !u!54 &8693204495884262456
 Rigidbody:
@@ -124,3 +125,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   down: 0
+--- !u!114 &129344271353731289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7040534561178587460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189f8f830c65b3e4aa89aca9597a9e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundHit: {fileID: 8300000, guid: 8bdb54222f03caa48b63f934a0aa077b, type: 3}

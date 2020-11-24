@@ -25,6 +25,12 @@ public class HouseManager : MonoBehaviour
     public Text textBest;
     [Header("本次數量文字介面")]
     public Text textCurrent;
+    [Header("生成房子音效")]
+    public AudioClip soundCreateHouse;
+    [Header("蓋房子音樂")]
+    public AudioClip soundBGMStart;
+    [Header("遊戲結束音樂")]
+    public AudioClip soundBGMGameOver;
 
 
 
@@ -54,8 +60,22 @@ public class HouseManager : MonoBehaviour
     /// </summary>
     private int count;
 
+    /// <summary>
+    /// 音效管理器
+    /// </summary>
+    private SoundManager soundManager;
+
+    /// <summary>
+    /// 遊戲結束
+    /// </summary>
+    /// <returns></returns>
+    private bool gameOver;
+
+
     private void Start()
     {
+        soundManager = FindObjectOfType<SoundManager>();
+        soundManager.PlayBGM(soundBGMStart, true);
         CreateHouse();
         InvokeRepeating("Shake", 0, 3);
     }
@@ -64,7 +84,13 @@ public class HouseManager : MonoBehaviour
     /// </summary>
     private void CreateHouse()
     {
-        tempHouse = Instantiate(houses[0], pointShake);
+        soundManager.PlaySound(soundCreateHouse);
+        if (count < 5)
+            tempHouse = Instantiate(houses[0], pointShake);
+        else if (count < 10)
+            tempHouse = Instantiate(houses[1], pointShake);
+        else
+            tempHouse = Instantiate(houses[2], pointShake);
     }
 
     /// <summary>
@@ -77,6 +103,8 @@ public class HouseManager : MonoBehaviour
 
     public void HouseDown()
     {
+        if (gameOver || !tempHouse) return;
+
         tempHouse.transform.SetParent(null);
         tempHouse.GetComponent<Rigidbody>().isKinematic = false;
         tempHouse.GetComponent<House>().down = true;
@@ -93,6 +121,7 @@ public class HouseManager : MonoBehaviour
 
         count++;
         textHouseCount.text = "房子數量:" + count;
+        tempHouse = null;
     }
 
     private void Update()
@@ -123,6 +152,9 @@ public class HouseManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (gameOver) return;
+        gameOver = true;
+
         final.SetActive(true);
 
         textCurrent.text = "本次數量:" + count;
@@ -131,6 +163,8 @@ public class HouseManager : MonoBehaviour
             PlayerPrefs.SetInt("最佳數量", count);
 
         textBest.text = "最佳數量:" + PlayerPrefs.GetInt("最佳數量");
+
+        soundManager.PlayBGM(soundBGMGameOver, false);
     }
 
 }
